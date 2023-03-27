@@ -4,13 +4,12 @@
 
 Секундомер. Можно добавлять несколько, они работают независимо друг от друга.
 Каждый секундомер имеет 3 функции:
-
 - запуск
 - пауза
 - сброс
 
 <p align="center">
-  <img src="./assets/images/screenshot.png"/>
+  <img src="src/assets/images/screenshot.png"/>
 </p>
 
 ## Используемые технологии
@@ -21,7 +20,7 @@
 
 ## Инструкцию по развертыванию проекта
 
-git clone  
+git clone https://github.com/N-Daria/Stopwatchers.git  
 npm i  
 npm run serve
 
