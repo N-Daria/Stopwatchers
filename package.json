@@ -2,10 +2,12 @@
   "name": "stopwatches",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://github.com/N-Daria/Stopwatchers.git",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "node gh-pages-deploy.js"
   },
   "dependencies": {
     "core-js": "^3.8.3",
@@ -23,7 +25,8 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^8.0.3",
     "prettier": "^2.8.7",
-    "vue-eslint-parser": "^9.1.0"
+    "vue-eslint-parser": "^9.1.0",
+    "execa": "latest"
   },
   "eslintConfig": {
     "root": true,
