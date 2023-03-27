@@ -1,11 +1,37 @@
 <template>
   <main class="body">
     <ul class="stopwachList">
-      <li class="stopwach stopwachList__block" v-for="item in stopwaches" :key="item.id">
-        <p class="stopwach__time">{{ item.stopwach }}</p>
-        <button class="stopwach__button stopwach__button_start" @click="setTimer"></button>
-        <button class="stopwach__button stopwach__button_stop" @click="stopTimer"></button>
-        <button class="stopwach__button stopwach__button_reset" @click="resetTimer"></button>
+      <!-- <stopwachList v-bind:stopwaches="stopwaches" /> -->
+
+      <!-- <li class="stopwach stopwachList__block" v-for="item in stopwaches" :key="item.id">
+
+
+      </li> -->
+
+      <li class="stopwach stopwachList__block">
+        <p
+          class="stopwach__time"
+          v-bind:class="{ stopwach__time_stopped: !this.stopwach.isActive }"
+        >
+          {{ formattedTime }}
+        </p>
+        <button
+          v-if="!stopwach.isActive"
+          class="stopwach__button stopwach__button_start"
+          v-bind:class="{ stopwach__button_stopped: !this.stopwach.isActive }"
+          @click="setTimer"
+        ></button>
+        <button
+          v-if="stopwach.isActive"
+          class="stopwach__button stopwach__button_stop"
+          v-bind:class="{ stopwach__button_stopped: !this.stopwach.isActive }"
+          @click="stopTimer"
+        ></button>
+        <button
+          class="stopwach__button stopwach__button_reset"
+          v-bind:class="{ stopwach__button_stopped: !this.stopwach.isActive }"
+          @click="resetTimer"
+        ></button>
       </li>
 
       <button class="stopwachList__new-stopwach stopwachList__block" @click="createTimer"></button>
@@ -14,28 +40,86 @@
 </template>
 
 <script>
+// import stopwachList from './stopwachList.vue';
+
 export default {
+  // components: {
+  //   stopwachList,
+  // },
+
   data() {
     return {
-      stopwaches: [
-        { stopwach: '2:40', id: 1, isSet: false },
-        { stopwach: '25:32', id: 2, isSet: false },
-        { stopwach: '1:30:15', id: 3, isSet: false },
-      ],
+      stopwach: {
+        time: 0,
+        id: Date.now(),
+        isActive: false,
+        timer: null,
+      },
+
+      // stopwaches: [
+      //   {
+      //     time: 0,
+      //     id: Date.now(),
+      //     isSet: true,
+      //   },
+      //   {
+      //     time: '25:32',
+      //     id: Date.now(),
+      //     isSet: true,
+      //   },
+      //   {
+      //     time: '1:30:15',
+      //     id: Date.now(),
+      //     isSet: true,
+      //   },
+      // ],
     };
   },
-  methods: {
-    setTimer() {},
-    resetTimer() {},
-    stopTimer() {},
 
+  methods: {
     createTimer() {
       const newStopwach = {
-        timer: 4,
-        id: 4,
+        time: 4,
+        id: Date.now(),
         isSet: false,
       };
       this.stopwaches.push(newStopwach);
+    },
+
+    setTimer() {
+      this.stopwach.isActive = true;
+
+      this.stopwach.timer = setInterval(() => {
+        this.stopwach.time += 1;
+      }, 1000);
+    },
+
+    resetTimer() {
+      this.stopwach.time = 0;
+    },
+
+    stopTimer() {
+      this.stopwach.isActive = false;
+      clearInterval(this.stopwach.timer);
+    },
+  },
+
+  computed: {
+    formattedTime() {
+      let newTime = this.stopwach.time;
+
+      if (newTime > 60) {
+        const date = new Date(1990, 1, 1, 0, 0, this.stopwach.time);
+
+        if (date.getMinutes() > 0) {
+          newTime = `${date.getMinutes()}:${date.getSeconds()}`;
+        }
+        if (date.getHours() > 0) {
+          newTime = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+        }
+      }
+
+      return newTime;
     },
   },
 };
