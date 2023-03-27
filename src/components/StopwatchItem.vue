@@ -41,24 +41,24 @@ export default {
 
   methods: {
     setTimer() {
-      this.$emit('passIsActive', true, this.id);
+      this.$parent.$emit('changeIsActive', true, this.id);
 
       this.timer = setInterval(() => {
-        this.$emit('passTime', this.stopwach.time + 1, this.id);
+        this.$parent.$emit('changeTime', this.stopwach.time + 1, this.id);
       }, 1000);
 
-      this.$emit('passTimer', this.timer, this.id);
+      this.$parent.$emit('changeTimer', this.timer, this.id);
     },
 
     resetTimer() {
-      this.$emit('passTime', 0, this.id);
+      this.$parent.$emit('changeTime', 0, this.id);
     },
 
     stopTimer() {
-      this.$emit('passIsActive', false, this.id);
+      this.$parent.$emit('changeIsActive', false, this.id);
 
       clearInterval(this.timer);
-      this.$emit('passTimer', this.timer, this.id);
+      this.$parent.$emit('changeTimer', this.timer, this.id);
     },
   },
 
