@@ -1,7 +1,12 @@
 <template>
   <main class="body">
     <ul class="stopwachList">
-      <stopwach-list v-bind:stopwaches="stopwaches" />
+      <stopwach-list
+        v-bind:stopwaches="stopwaches"
+        @changeTime="changeTime"
+        @changeIsActive="changeIsActive"
+        @changeTimer="changeTimer"
+      />
 
       <button class="stopwachList__new-stopwach stopwachList__block" @click="createTimer"></button>
     </ul>
@@ -25,18 +30,6 @@ export default {
           isActive: false,
           timer: null,
         },
-        {
-          time: 0,
-          id: Date.now(),
-          isActive: false,
-          timer: null,
-        },
-        {
-          time: 0,
-          id: Date.now(),
-          isActive: false,
-          timer: null,
-        },
       ],
     };
   },
@@ -50,6 +43,25 @@ export default {
         timer: null,
       };
       this.stopwaches.push(newStopwach);
+    },
+
+    findStopwach(id) {
+      return this.stopwaches.filter((el) => el.id === id)[0];
+    },
+
+    changeTime(value, id) {
+      const stopwach = this.findStopwach(id);
+      stopwach.time = value;
+    },
+
+    changeIsActive(value, id) {
+      const stopwach = this.findStopwach(id);
+      stopwach.isActive = value;
+    },
+
+    changeTimer(value, id) {
+      const stopwach = this.findStopwach(id);
+      stopwach.timer = value;
     },
   },
 };

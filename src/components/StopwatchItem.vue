@@ -32,22 +32,33 @@ export default {
     },
   },
 
+  data() {
+    return {
+      timer: null,
+      id: this.stopwach.id,
+    };
+  },
+
   methods: {
     setTimer() {
-      this.stopwach.isActive = true;
+      this.$emit('passIsActive', true, this.id);
 
-      this.stopwach.timer = setInterval(() => {
-        this.stopwach.time += 1;
+      this.timer = setInterval(() => {
+        this.$emit('passTime', this.stopwach.time + 1, this.id);
       }, 1000);
+
+      this.$emit('passTimer', this.timer, this.id);
     },
 
     resetTimer() {
-      this.stopwach.time = 0;
+      this.$emit('passTime', 0, this.id);
     },
 
     stopTimer() {
-      this.stopwach.isActive = false;
-      clearInterval(this.stopwach.timer);
+      this.$emit('passIsActive', false, this.id);
+
+      clearInterval(this.timer);
+      this.$emit('passTimer', this.timer, this.id);
     },
   },
 
