@@ -1,24 +1,31 @@
-# stopwatches
+# Sropwachers
 
-## Project setup
-```
-npm install
-```
+[Ссылка на проект](https://n-daria.github.io/Stopwatchers)
 
-### Compiles and hot-reloads for development
-```
+Секундомер. Можно добавлять несколько, они работают независимо друг от друга.
+Каждый секундомер имеет 3 функции:
+
+- запуск
+- пауза
+- сброс
+
+<p align="center">
+  <img src="./screenshot.png"/>
+</p>
+
+## Используемые технологии
+
+- Адаптивная верстка (БЭМ, Flexbox, grid)
+- JavaScript
+- Vue 3
+
+## Инструкцию по развертыванию проекта
+
+git clone  
+npm i  
 npm run serve
-```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## Планы по доработке проекта
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+1. Переписать изменение пропсов
+2. Переписать повторяющиеся стили в единый компонет
