@@ -36,15 +36,22 @@ export default {
     return {
       timer: null,
       id: this.stopwach.id,
+      elapsedTime: 0,
+      startTime: 0,
     };
   },
 
   methods: {
     setTimer() {
+      this.startTime = Date.now();
+
       this.$parent.$emit('changeIsActive', true, this.id);
 
       this.timer = setInterval(() => {
-        this.$parent.$emit('changeTime', this.stopwach.time + 1, this.id);
+        const elapsedTime = Date.now() - this.startTime + this.elapsedTime;
+        const seconds = parseInt(elapsedTime / 1000, 10);
+
+        this.$parent.$emit('changeTime', seconds, this.id);
       }, 1000);
 
       this.$parent.$emit('changeTimer', this.timer, this.id);
@@ -52,9 +59,14 @@ export default {
 
     resetTimer() {
       this.$parent.$emit('changeTime', 0, this.id);
+
+      this.startTime = Date.now();
+      this.elapsedTime = 0;
     },
 
     stopTimer() {
+      this.elapsedTime += Date.now() - this.startTime;
+
       this.$parent.$emit('changeIsActive', false, this.id);
 
       clearInterval(this.timer);
